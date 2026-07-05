@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: OpenClinica
+providerId: openclinica
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Clinical Trials
+- Electronic Data Capture
+- EDC
+- Rate Limiting
+- Quotas
+description: >-
+  OpenClinica does not publish fixed numeric REST API rate limits. Access is
+  gated by OAuth 2.0 bearer tokens and by the study/site privileges of the
+  authenticating user rather than by a documented per-minute request cap. On the
+  self-hosted Community Edition, throughput is bounded by your own
+  infrastructure. On Enterprise (hosted) instances, practical throughput is
+  governed by the hosted environment and your agreement. Large data movements are
+  designed to run as asynchronous bulk operations (bulk participants, bulk
+  events, extracts) whose status is tracked through the bulk actions log, rather
+  than as many small synchronous calls.
+notes: >-
+  No per-account or per-endpoint numeric limit is documented as of the review
+  date. Prefer bulk endpoints for high-volume work and poll the bulk actions log
+  for completion. Confirm any hosted-instance limits with OpenClinica.
+sources:
+- https://docs.openclinica.com/oc4/how-and-when-to-use-apis/
+- https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/
+- https://github.com/OpenClinica/OpenClinica
+responseCodes:
+  throttled: 429
+limits:
+- name: REST API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the REST API.
+- name: Self-Hosted Throughput
+  scope: deployment
+  metric: requests
+  limit: hardware-bound
+  notes: Community Edition throughput is constrained by your own infrastructure.
+- name: Bulk Operation Size
+  scope: request
+  metric: records
+  limit: configurable via payload
+  notes: Bulk participant and event endpoints accept a list per request and process it asynchronously.
+- name: Token Lifetime
+  scope: account
+  metric: seconds
+  limit: per expires_in
+  notes: OAuth access tokens expire; re-request a token from the user-service token endpoint when expired.
+policies:
+- name: Authorization Scoping
+  description: A user's study and site privileges bound which participants, events, and data the API returns or accepts.
+- name: Asynchronous Bulk Processing
+  description: Bulk actions run as jobs; poll the bulk actions log for status rather than blocking on large synchronous calls.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

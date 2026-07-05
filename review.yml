@@ -1,0 +1,107 @@
+aid: openclinica
+name: OpenClinica
+review:
+  question: Does OpenClinica expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. OpenClinica's documented public surface is
+    a request/response REST web services API over HTTPS, authenticated with OAuth
+    2.0 bearer tokens. There is no server-push transport (WebSocket or SSE) on
+    OpenClinica's own API to model. Bulk and extract operations are asynchronous
+    jobs whose status is retrieved by polling the bulk actions log - client-pull,
+    not server-push - so there is no event stream to describe with AsyncAPI.
+findings:
+  summary: |
+    OpenClinica does not publish a documented public WebSocket API. OpenClinica is
+    a clinical-trial electronic data capture (EDC) and clinical data management
+    platform. Its REST web services API (OpenClinica 4 paths under
+    /pages/auth/api/clinicaldata, plus the OpenClinica 3 REST specifications)
+    lets integrators add and update participants (single and bulk), schedule and
+    update study events, and import and retrieve clinical (CRF) data. Data is
+    interchanged with the CDISC ODM standard as XML or JSON. Access is gated by an
+    OAuth 2.0 bearer token obtained from the user-service token endpoint
+    (POST /user-service/api/oauth/token) and by the user's study/site privileges.
+    All documented interactions are request/response REST over HTTPS. Long-running
+    work (bulk participant/event operations, contact-info extracts) runs as
+    asynchronous jobs surfaced through the bulk actions log, which is polled - not
+    pushed. No realtime, bidirectional, or streaming WebSocket (ws:// or wss://)
+    endpoint is documented on OpenClinica's own API.
+  openSource: |
+    OpenClinica ships a free, open-source Community Edition (LGPL) that is
+    self-hostable (github.com/OpenClinica/OpenClinica), and a fully supported,
+    hosted Enterprise Edition sold by quote. The REST API is available in both
+    editions and carries no separate fee. OpenClinica is multi-tenant SaaS in the
+    hosted model, addressed by an instance subdomain.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{subdomain}.build.openclinica.io/pages/auth/api
+      documented: true
+      note: OpenClinica 4 clinicaldata REST endpoints for participants, events, and clinical data.
+    - protocol: REST
+      scheme: https
+      baseURL: https://{subdomain}.build.openclinica.io/user-service/api
+      documented: true
+      note: OAuth 2.0 token endpoint that issues the bearer token used by the API.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the OpenClinica REST web services documentation as of the review date.
+  endpointsConfirmedRest:
+    - POST https://{subdomain}.build.openclinica.io/user-service/api/oauth/token
+    - GET  https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/participants
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/participants
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants/extractParticipantsInfo
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/events
+    - PUT  https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/events
+    - GET  https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/{studyOID}/{participantOID}/{studyEventOID}/{formOID}
+  endpointsModeledRest:
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/participants/bulk
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{studyOID}/events
+    - POST https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata
+    - GET  https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/metadata/{studyOID}
+    - GET  https://{subdomain}.build.openclinica.io/pages/auth/api/bulkActionsLog
+  modeledNote: |
+    The confirmed endpoints are grounded in OpenClinica 4 API documentation. The
+    modeled endpoints (bulk participants, bulk events, clinical-data import, ODM
+    metadata read, and bulk actions log) are documented as capabilities in the
+    OpenClinica docs but their exact request paths/payloads were not fully
+    recoverable from the client-rendered documentation pages; they are represented
+    here and in the OpenAPI as best-effort models to be reconciled against a
+    specific instance version.
+sources:
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/
+    type: Documentation
+    note: OpenClinica 4 API overview - participants, events, clinicaldata, bulk, bulk actions log. Bearer token auth.
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-add/
+    type: APIReference
+    note: Add or update a participant at study or site level under /pages/auth/api/clinicaldata.
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-events-create-and-update-single-study-event/
+    type: APIReference
+    note: Create and update a single study event (POST/PUT .../events).
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-clinicaldata-import-crf-data/
+    type: APIReference
+    note: Import and retrieve clinical data as CDISC ODM XML/JSON.
+  - url: https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-oauth-and-openclinica/
+    type: Documentation
+    note: OAuth 2.0 is required for the REST API. Token via the user-service token endpoint.
+  - url: https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-read-openclinica-odm-metadata-rest-service/
+    type: Documentation
+    note: Read ODM study metadata REST service (OpenClinica 3), qualified by study OID.
+  - url: https://github.com/OpenClinica/OpenClinica
+    type: SourceCode
+    note: Open-source (LGPL) Community Edition, self-hostable.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. OpenClinica's own public API is
+    request/response REST (OAuth 2.0 bearer) with CDISC ODM as the data
+    interchange format, and asynchronous work is surfaced by polling the bulk
+    actions log rather than by a server-push stream. No AsyncAPI document was
+    created because there is no WebSocket or SSE transport on OpenClinica's own
+    API to model.

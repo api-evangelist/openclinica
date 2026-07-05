@@ -1,0 +1,166 @@
+aid: openclinica
+url: https://raw.githubusercontent.com/api-evangelist/openclinica/refs/heads/main/apis.yml
+name: OpenClinica
+kind: company
+description: OpenClinica is a clinical-trial electronic data capture (EDC) and
+  clinical data management platform used to build studies, capture case report
+  form (CRF) data, schedule study events, and manage participants across sites.
+  It ships as a free, open-source Community Edition (LGPL) and as a fully
+  supported, hosted Enterprise Edition. OpenClinica exposes a documented REST web
+  services API - authenticated with OAuth 2.0 bearer tokens - for programmatically
+  adding and updating participants (single and bulk), scheduling and updating
+  study events, and importing and retrieving clinical data. Data is interchanged
+  using the CDISC ODM (Operational Data Model) standard as XML or JSON, so studies
+  remain portable and standards-based.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Clinical Trials
+- Electronic Data Capture
+- EDC
+- Clinical Data Management
+- CDISC ODM
+- Healthcare
+- Open Source
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: openclinica:openclinica-authentication-api
+  name: OpenClinica Authentication API
+  tags:
+  - Authentication
+  - OAuth
+  - Tokens
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/
+  baseURL: https://{subdomain}.build.openclinica.io/user-service/api
+  properties:
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/
+    type: Documentation
+  - url: https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-oauth-and-openclinica/
+    type: APIReference
+  - url: openapi/openclinica-openapi.yml
+    type: OpenAPI
+  description: Obtain an OAuth 2.0 bearer access token by POSTing credentials to the
+    OpenClinica user-service token endpoint. The returned token is passed as an
+    Authorization Bearer header on every subsequent REST API call.
+- aid: openclinica:openclinica-participants-api
+  name: OpenClinica Participants API
+  tags:
+  - Participants
+  - Subjects
+  - Enrollment
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-add/
+  baseURL: https://{subdomain}.build.openclinica.io/pages/auth/api
+  properties:
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-add/
+    type: Documentation
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-get-participants-study-level-or-site-level/
+    type: APIReference
+  - url: openapi/openclinica-openapi.yml
+    type: OpenAPI
+  - url: collections/openclinica.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openclinica.opencollection.json
+    type: OpenCollection
+  description: Add or update study participants at study or site level, list
+    participants scoped to a study or site, and extract participant contact
+    information. Participants are the human subjects enrolled in a clinical study.
+- aid: openclinica:openclinica-study-events-api
+  name: OpenClinica Study Events API
+  tags:
+  - Study Events
+  - Scheduling
+  - Visits
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-events-create-and-update-single-study-event/
+  baseURL: https://{subdomain}.build.openclinica.io/pages/auth/api
+  properties:
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-events-create-and-update-single-study-event/
+    type: Documentation
+  - url: openapi/openclinica-openapi.yml
+    type: OpenAPI
+  - url: collections/openclinica.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openclinica.opencollection.json
+    type: OpenCollection
+  description: Schedule (create) and update study events for a participant - the
+    visits or time points at which case report forms are collected. Supports
+    single-event operations and bulk create/update of study events.
+- aid: openclinica:openclinica-clinical-data-api
+  name: OpenClinica Clinical Data API
+  tags:
+  - Clinical Data
+  - CRF
+  - CDISC ODM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-clinicaldata-import-crf-data/
+  baseURL: https://{subdomain}.build.openclinica.io/pages/auth/api
+  properties:
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-clinicaldata-import-crf-data/
+    type: Documentation
+  - url: openapi/openclinica-openapi.yml
+    type: OpenAPI
+  - url: collections/openclinica.postman_collection.json
+    type: PostmanCollection
+  - url: collections/openclinica.opencollection.json
+    type: OpenCollection
+  description: Import and retrieve clinical (case report form) data using the CDISC
+    ODM standard as XML or JSON. Retrieval can return study metadata and/or clinical
+    data including audit logs, discrepancy notes (queries), and archived forms,
+    scoped by study, participant, event, and form.
+- aid: openclinica:openclinica-odm-metadata-api
+  name: OpenClinica ODM Metadata API
+  tags:
+  - Metadata
+  - CDISC ODM
+  - Study Design
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-read-openclinica-odm-metadata-rest-service/
+  baseURL: https://{subdomain}.build.openclinica.io/pages/auth/api
+  properties:
+  - url: https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-read-openclinica-odm-metadata-rest-service/
+    type: Documentation
+  - url: https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/openclinica-restful-urls/
+    type: APIReference
+  - url: openapi/openclinica-openapi.yml
+    type: OpenAPI
+  description: Read the ODM metadata that describes a study's design - event
+    definitions, forms, item groups, and items - qualified by a study OID. The
+    requesting user must have read privileges for the study. Returns CDISC ODM.
+- aid: openclinica:openclinica-bulk-operations-api
+  name: OpenClinica Bulk Operations API
+  tags:
+  - Bulk
+  - Batch
+  - Jobs
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-participantsbulk-add-bulk-list-participant-ids/
+  baseURL: https://{subdomain}.build.openclinica.io/pages/auth/api
+  properties:
+  - url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-participantsbulk-add-bulk-list-participant-ids/
+    type: Documentation
+  - url: openapi/openclinica-openapi.yml
+    type: OpenAPI
+  description: Add or update a bulk list of participants in a single request and
+    review the outcome of asynchronous bulk actions through the bulk actions log.
+    Used for high-volume participant onboarding and batch operations.
+common:
+- type: GitHubOrganization
+  url: https://github.com/OpenClinica
+- type: LinkedIn
+  url: https://www.linkedin.com/company/openclinica
+- type: Website
+  url: https://www.openclinica.com
+- type: Documentation
+  url: https://docs.openclinica.com/oc4/how-and-when-to-use-apis/
+- type: Plans
+  url: plans/openclinica-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/openclinica-rate-limits.yml
+- type: FinOps
+  url: finops/openclinica-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

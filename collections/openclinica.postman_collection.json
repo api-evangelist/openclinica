@@ -1,0 +1,192 @@
+{
+  "info": {
+    "name": "OpenClinica REST API",
+    "description": "Programmatic access to OpenClinica clinical-trial EDC. Add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (CRF) data using CDISC ODM. Obtain an OAuth 2.0 bearer token from {{baseUrl}}/user-service/api/oauth/token, then send it as an Authorization Bearer header. Replace {{subdomain}} with your OpenClinica instance subdomain. Some paths (bulk bodies, clinical-data import, ODM metadata) are modeled from the docs and should be reconciled against your instance version.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "subdomain", "value": "your-instance", "type": "string" },
+    { "key": "baseUrl", "value": "https://{{subdomain}}.build.openclinica.io", "type": "string" },
+    { "key": "bearerToken", "value": "", "type": "string" },
+    { "key": "studyOID", "value": "S_STUDY01", "type": "string" },
+    { "key": "siteOID", "value": "S_SITE01", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Obtain an OAuth 2.0 access token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [
+              { "key": "grant_type", "value": "password" },
+              { "key": "username", "value": "" },
+              { "key": "password", "value": "" }
+            ] },
+            "url": { "raw": "{{baseUrl}}/user-service/api/oauth/token", "host": ["{{baseUrl}}"], "path": ["user-service", "api", "oauth", "token"] },
+            "description": "POST credentials to obtain a bearer access token used on all subsequent calls."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Participants",
+      "item": [
+        {
+          "name": "Get participants at study level",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/participants", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "participants"] },
+            "description": "Lists participants enrolled in a study."
+          }
+        },
+        {
+          "name": "Add or update a participant at study level",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"subjectKey\": \"SUBJ-001\",\n  \"enrollmentDate\": \"2026-07-05\"\n}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/participants", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "participants"] },
+            "description": "Creates or updates a single participant at the study level."
+          }
+        },
+        {
+          "name": "Get participants at site level",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/participants", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "sites", "{{siteOID}}", "participants"] },
+            "description": "Lists participants enrolled at a specific site."
+          }
+        },
+        {
+          "name": "Add or update a participant at site level",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"subjectKey\": \"SUBJ-001\",\n  \"enrollmentDate\": \"2026-07-05\"\n}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/participants", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "sites", "{{siteOID}}", "participants"] },
+            "description": "Creates or updates a single participant at a specific site."
+          }
+        },
+        {
+          "name": "Extract participant contact information",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/participants/extractParticipantsInfo", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "sites", "{{siteOID}}", "participants", "extractParticipantsInfo"] },
+            "description": "Retrieves participant contact information as an asynchronous extract."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Study Events",
+      "item": [
+        {
+          "name": "Create (schedule) a single study event",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"subjectKey\": \"SUBJ-001\",\n  \"studyEventOID\": \"SE_VISIT1\",\n  \"startDate\": \"2026-07-05\"\n}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/events", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "sites", "{{siteOID}}", "events"] },
+            "description": "Schedules a single study event for a participant at a site."
+          }
+        },
+        {
+          "name": "Update a single study event",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"subjectKey\": \"SUBJ-001\",\n  \"studyEventOID\": \"SE_VISIT1\",\n  \"status\": \"completed\"\n}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/events", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "sites", "{{siteOID}}", "events"] },
+            "description": "Updates an existing study event for a participant at a site."
+          }
+        },
+        {
+          "name": "Bulk create or update study events",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"events\": [\n    { \"subjectKey\": \"SUBJ-001\", \"studyEventOID\": \"SE_VISIT1\", \"startDate\": \"2026-07-05\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/events", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "events"] },
+            "description": "Schedules or updates study events for multiple participants (modeled)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clinical Data",
+      "item": [
+        {
+          "name": "Retrieve clinical data as CDISC ODM",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/{{studyOID}}/:participantOID/:studyEventOID/:formOID?includeDNs=true", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "{{studyOID}}", ":participantOID", ":studyEventOID", ":formOID"], "query": [{ "key": "includeDNs", "value": "true" }], "variable": [{ "key": "participantOID", "value": "SS_SUBJ001" }, { "key": "studyEventOID", "value": "SE_VISIT1" }, { "key": "formOID", "value": "F_DEMOG" }] },
+            "description": "Retrieves participant clinical data as CDISC ODM XML or JSON, optionally with audits and discrepancy notes."
+          }
+        },
+        {
+          "name": "Import clinical data (CDISC ODM)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": { "mode": "raw", "raw": "<ODM><ClinicalData StudyOID=\"S_STUDY01\"></ClinicalData></ODM>" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata"] },
+            "description": "Imports clinical data using a CDISC ODM document (modeled)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Metadata",
+      "item": [
+        {
+          "name": "Read ODM study metadata",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/metadata/{{studyOID}}", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "metadata", "{{studyOID}}"] },
+            "description": "Reads the ODM metadata describing a study's design (modeled path)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bulk Operations",
+      "item": [
+        {
+          "name": "Add or update a bulk list of participants",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"participants\": [\n    { \"subjectKey\": \"SUBJ-001\" },\n    { \"subjectKey\": \"SUBJ-002\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/clinicaldata/studies/{{studyOID}}/participants/bulk", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "clinicaldata", "studies", "{{studyOID}}", "participants", "bulk"] },
+            "description": "Adds or updates a list of participants in a single request (modeled)."
+          }
+        },
+        {
+          "name": "Retrieve the bulk actions log",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/pages/auth/api/bulkActionsLog", "host": ["{{baseUrl}}"], "path": ["pages", "auth", "api", "bulkActionsLog"] },
+            "description": "Returns the log of asynchronous bulk operations and their status (modeled path)."
+          }
+        }
+      ]
+    }
+  ]
+}

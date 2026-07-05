@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenClinica REST API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Authentication", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Obtain an OAuth 2.0 access token.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/user-service/api/oauth/token",
+            "auth": { "type": "none" },
+            "body": { "type": "text", "data": "grant_type=password&username=&password=" }
+          },
+          "docs": "POST credentials to obtain a bearer access token used on all subsequent calls."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Participants", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get participants at study level.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/participants" },
+          "docs": "Lists participants enrolled in a study."
+        },
+        {
+          "info": { "name": "Add or update a participant at study level.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/participants",
+            "body": { "type": "json", "data": "{\"subjectKey\":\"SUBJ-001\",\"enrollmentDate\":\"2026-07-05\"}" }
+          },
+          "docs": "Creates or updates a single participant at the study level."
+        },
+        {
+          "info": { "name": "Get participants at site level.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/participants" },
+          "docs": "Lists participants enrolled at a specific site."
+        },
+        {
+          "info": { "name": "Add or update a participant at site level.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/participants",
+            "body": { "type": "json", "data": "{\"subjectKey\":\"SUBJ-001\",\"enrollmentDate\":\"2026-07-05\"}" }
+          },
+          "docs": "Creates or updates a single participant at a specific site."
+        },
+        {
+          "info": { "name": "Extract participant contact information.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/participants/extractParticipantsInfo",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Retrieves participant contact information as an asynchronous extract."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Study Events", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create (schedule) a single study event.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/events",
+            "body": { "type": "json", "data": "{\"subjectKey\":\"SUBJ-001\",\"studyEventOID\":\"SE_VISIT1\",\"startDate\":\"2026-07-05\"}" }
+          },
+          "docs": "Schedules a single study event for a participant at a site."
+        },
+        {
+          "info": { "name": "Update a single study event.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/sites/{{siteOID}}/events",
+            "body": { "type": "json", "data": "{\"subjectKey\":\"SUBJ-001\",\"studyEventOID\":\"SE_VISIT1\",\"status\":\"completed\"}" }
+          },
+          "docs": "Updates an existing study event for a participant at a site."
+        },
+        {
+          "info": { "name": "Bulk create or update study events.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/events",
+            "body": { "type": "json", "data": "{\"events\":[{\"subjectKey\":\"SUBJ-001\",\"studyEventOID\":\"SE_VISIT1\",\"startDate\":\"2026-07-05\"}]}" }
+          },
+          "docs": "Schedules or updates study events for multiple participants (modeled)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Clinical Data", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Retrieve clinical data as CDISC ODM.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/{{studyOID}}/:participantOID/:studyEventOID/:formOID",
+            "params": [
+              { "name": "participantOID", "value": "SS_SUBJ001", "type": "path", "description": "The participant OID." },
+              { "name": "studyEventOID", "value": "SE_VISIT1", "type": "path", "description": "The study event OID." },
+              { "name": "formOID", "value": "F_DEMOG", "type": "path", "description": "The form OID." },
+              { "name": "includeDNs", "value": "true", "type": "query", "description": "Include discrepancy notes (queries)." }
+            ]
+          },
+          "docs": "Retrieves participant clinical data as CDISC ODM XML or JSON, optionally with audits and discrepancy notes."
+        },
+        {
+          "info": { "name": "Import clinical data (CDISC ODM).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata",
+            "body": { "type": "xml", "data": "<ODM><ClinicalData StudyOID=\"S_STUDY01\"></ClinicalData></ODM>" }
+          },
+          "docs": "Imports clinical data using a CDISC ODM document (modeled)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Metadata", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Read ODM study metadata.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/metadata/{{studyOID}}" },
+          "docs": "Reads the ODM metadata describing a study's design (modeled path)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Bulk Operations", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Add or update a bulk list of participants.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/clinicaldata/studies/{{studyOID}}/participants/bulk",
+            "body": { "type": "json", "data": "{\"participants\":[{\"subjectKey\":\"SUBJ-001\"},{\"subjectKey\":\"SUBJ-002\"}]}" }
+          },
+          "docs": "Adds or updates a list of participants in a single request (modeled)."
+        },
+        {
+          "info": { "name": "Retrieve the bulk actions log.", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.build.openclinica.io/pages/auth/api/bulkActionsLog" },
+          "docs": "Returns the log of asynchronous bulk operations and their status (modeled path)."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: OpenClinica
+providerId: openclinica
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Clinical Trials
+- Electronic Data Capture
+- EDC
+- Open Source
+- Plans
+description: >-
+  OpenClinica offers two editions. The Community Edition is free and open source
+  (LGPL) and self-hostable, with the full EDC platform but no vendor support or
+  services. The Enterprise Edition is a fully supported, hosted (SaaS) build with
+  onboarding, validation, security, and SLAs, sold via contact-sales; published
+  third-party listings put Enterprise starting around USD 1,000/month, with
+  actual pricing scoped to studies, participants, sites, and support level. The
+  REST API itself carries no separate fee - it is included with whichever edition
+  you run. Exact Enterprise rates are not reconciled here.
+notes: >-
+  The ~$1,000/month starting figure comes from third-party software directories,
+  not an official OpenClinica price list; OpenClinica sells Enterprise by quote.
+  Verify current editions and pricing with OpenClinica sales during
+  reconciliation.
+sources:
+- https://www.openclinica.com/
+- https://www.openclinica.com/community-edition-open-source-edc-2/
+- https://www.openclinica.com/get-free-community-edition-software/
+- https://github.com/OpenClinica/OpenClinica
+plans:
+- id: openclinica-community
+  name: Community Edition (Open Source)
+  type: free
+  description: >-
+    The full OpenClinica EDC platform, LGPL-licensed and self-hostable. Build
+    studies, capture CRF data, schedule study events, manage participants and
+    sites, and use the REST API. No vendor support or services are included.
+  entries:
+  - label: Self-Hosted Usage
+    name: self_hosted_usage
+    type: usage
+    metric: studies
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (self-hosted; you provide infrastructure)
+    userMultiplied: false
+  elements:
+  - name: Full EDC Platform
+  - name: REST Web Services API
+  - name: CDISC ODM Import and Export
+  - name: Self-Managed Hosting
+- id: openclinica-enterprise
+  name: Enterprise Edition
+  type: enterprise
+  description: >-
+    Fully supported, hosted OpenClinica with onboarding, study build services,
+    validation documentation, security and compliance features, and SLAs. Priced
+    by quote based on studies, participants, sites, and support level.
+  entries:
+  - label: Enterprise Subscription
+    name: enterprise_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales (third-party listings from ~$1,000/month)
+    userMultiplied: false
+  elements:
+  - name: Managed Hosting
+  - name: Vendor Support and SLAs
+  - name: Onboarding and Study Build Services
+  - name: Validation and Compliance Documentation
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
