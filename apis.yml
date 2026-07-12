@@ -147,6 +147,12 @@ apis:
     review the outcome of asynchronous bulk actions through the bulk actions log.
     Used for high-volume participant onboarding and batch operations.
 common:
+- type: TrustCenter
+  url: security/openclinica-trust-center.yml
+- type: DomainSecurity
+  url: security/openclinica-domain-security.yml
+- type: Authentication
+  url: authentication/openclinica-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/OpenClinica
 - type: LinkedIn
