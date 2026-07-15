@@ -1,0 +1,210 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/openclinica-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 14
+  by_action_class:
+    acting: 9
+    connected: 5
+  by_consequence:
+    write: 9
+    read: 5
+  human_in_the_loop_required: 0
+operations:
+- path: /user-service/api/oauth/token
+  method: post
+  operationId: getAccessToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/participants
+  method: get
+  operationId: listStudyParticipants
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/participants
+  method: post
+  operationId: addStudyParticipant
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants
+  method: get
+  operationId: listSiteParticipants
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants
+  method: post
+  operationId: addSiteParticipant
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants/extractParticipantsInfo
+  method: post
+  operationId: extractParticipantsInfo
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/participants/bulk
+  method: post
+  operationId: addBulkParticipants
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/events
+  method: post
+  operationId: createBulkStudyEvents
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/events
+  method: post
+  operationId: createStudyEvent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/events
+  method: put
+  operationId: updateStudyEvent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/{studyOID}/{participantOID}/{studyEventOID}/{formOID}
+  method: get
+  operationId: getClinicalData
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pages/auth/api/clinicaldata
+  method: post
+  operationId: importClinicalData
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pages/auth/api/clinicaldata/metadata/{studyOID}
+  method: get
+  operationId: getStudyMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pages/auth/api/bulkActionsLog
+  method: get
+  operationId: getBulkActionsLog
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
