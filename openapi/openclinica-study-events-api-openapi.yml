@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: OpenClinica REST Authentication Study Events API
+  description: 'OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.
+
+    Endpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.'
+  version: '4.0'
+  contact:
+    name: OpenClinica
+    url: https://www.openclinica.com
+  license:
+    name: LGPL-2.1 (Community Edition)
+    url: https://github.com/OpenClinica/OpenClinica/blob/master/LICENSE.txt
+servers:
+- url: https://{subdomain}.build.openclinica.io
+  description: OpenClinica hosted instance (replace {subdomain} with your instance subdomain)
+  variables:
+    subdomain:
+      default: your-instance
+      description: Your OpenClinica instance subdomain.
+security:
+- bearerAuth: []
+tags:
+- name: Study Events
+  description: Scheduling and updating study events (visits) for participants.
+paths:
+  /pages/auth/api/clinicaldata/studies/{studyOID}/events:
+    post:
+      operationId: createBulkStudyEvents
+      tags:
+      - Study Events
+      summary: Bulk create or update study events
+      description: Schedules or updates study events for multiple participants in a single request. Modeled from the OpenClinica bulk events documentation.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                events:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/StudyEvent'
+      responses:
+        '200':
+          description: A job accepted to process the bulk events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/events:
+    post:
+      operationId: createStudyEvent
+      tags:
+      - Study Events
+      summary: Create (schedule) a single study event
+      description: Schedules a single study event for a participant at a site.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      - $ref: '#/components/parameters/SiteOID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudyEvent'
+      responses:
+        '200':
+          description: The scheduled study event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyEvent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateStudyEvent
+      tags:
+      - Study Events
+      summary: Update a single study event
+      description: Updates an existing study event for a participant at a site.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      - $ref: '#/components/parameters/SiteOID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudyEvent'
+      responses:
+        '200':
+          description: The updated study event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyEvent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SiteOID:
+      name: siteOID
+      in: path
+      required: true
+      description: The unique site OID within the study.
+      schema:
+        type: string
+        example: S_SITE01
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+  schemas:
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
+    StudyEvent:
+      type: object
+      properties:
+        subjectKey:
+          type: string
+        studyEventOID:
+          type: string
+          description: The study event definition OID.
+        ordinal:
+          type: integer
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        status:
+          type: string
+          example: scheduled
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

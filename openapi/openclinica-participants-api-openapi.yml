@@ -1,0 +1,204 @@
+openapi: 3.0.3
+info:
+  title: OpenClinica REST Authentication Participants API
+  description: 'OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.
+
+    Endpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.'
+  version: '4.0'
+  contact:
+    name: OpenClinica
+    url: https://www.openclinica.com
+  license:
+    name: LGPL-2.1 (Community Edition)
+    url: https://github.com/OpenClinica/OpenClinica/blob/master/LICENSE.txt
+servers:
+- url: https://{subdomain}.build.openclinica.io
+  description: OpenClinica hosted instance (replace {subdomain} with your instance subdomain)
+  variables:
+    subdomain:
+      default: your-instance
+      description: Your OpenClinica instance subdomain.
+security:
+- bearerAuth: []
+tags:
+- name: Participants
+  description: Study participants (subjects) - add, update, list, and extract contact info.
+paths:
+  /pages/auth/api/clinicaldata/studies/{studyOID}/participants:
+    get:
+      operationId: listStudyParticipants
+      tags:
+      - Participants
+      summary: Get participants at study level
+      description: Lists participants enrolled in a study, qualified by study OID.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      responses:
+        '200':
+          description: A list of participants.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: addStudyParticipant
+      tags:
+      - Participants
+      summary: Add or update a participant at study level
+      description: Creates or updates a single participant enrolled directly at the study level.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Participant'
+      responses:
+        '200':
+          description: The created or updated participant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participant'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants:
+    get:
+      operationId: listSiteParticipants
+      tags:
+      - Participants
+      summary: Get participants at site level
+      description: Lists participants enrolled at a specific site within a study.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      - $ref: '#/components/parameters/SiteOID'
+      responses:
+        '200':
+          description: A list of participants for the site.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: addSiteParticipant
+      tags:
+      - Participants
+      summary: Add or update a participant at site level
+      description: Creates or updates a single participant enrolled at a specific site.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      - $ref: '#/components/parameters/SiteOID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Participant'
+      responses:
+        '200':
+          description: The created or updated participant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participant'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pages/auth/api/clinicaldata/studies/{studyOID}/sites/{siteOID}/participants/extractParticipantsInfo:
+    post:
+      operationId: extractParticipantsInfo
+      tags:
+      - Participants
+      summary: Extract participant contact information
+      description: Retrieves participant contact information (e.g. for notifications) for a study and site. Returns an asynchronous job that produces a contact-info extract.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      - $ref: '#/components/parameters/SiteOID'
+      responses:
+        '200':
+          description: A job accepted to extract participant contact information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SiteOID:
+      name: siteOID
+      in: path
+      required: true
+      description: The unique site OID within the study.
+      schema:
+        type: string
+        example: S_SITE01
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+  schemas:
+    ParticipantList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
+    Participant:
+      type: object
+      properties:
+        subjectKey:
+          type: string
+          description: The participant (subject) identifier.
+        studyOID:
+          type: string
+        siteOID:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        enrollmentDate:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: OpenClinica REST Authentication Bulk Operations API
+  description: 'OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.
+
+    Endpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.'
+  version: '4.0'
+  contact:
+    name: OpenClinica
+    url: https://www.openclinica.com
+  license:
+    name: LGPL-2.1 (Community Edition)
+    url: https://github.com/OpenClinica/OpenClinica/blob/master/LICENSE.txt
+servers:
+- url: https://{subdomain}.build.openclinica.io
+  description: OpenClinica hosted instance (replace {subdomain} with your instance subdomain)
+  variables:
+    subdomain:
+      default: your-instance
+      description: Your OpenClinica instance subdomain.
+security:
+- bearerAuth: []
+tags:
+- name: Bulk Operations
+  description: Bulk participant and event operations plus the bulk actions log.
+paths:
+  /pages/auth/api/clinicaldata/studies/{studyOID}/participants/bulk:
+    post:
+      operationId: addBulkParticipants
+      tags:
+      - Bulk Operations
+      summary: Add or update a bulk list of participants
+      description: Adds or updates a list of participants in a single request. Modeled from the OpenClinica bulk participants documentation; reconcile the exact path and payload against your instance version.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                participants:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Participant'
+      responses:
+        '200':
+          description: A job accepted to process the bulk participant list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pages/auth/api/bulkActionsLog:
+    get:
+      operationId: getBulkActionsLog
+      tags:
+      - Bulk Operations
+      summary: Retrieve the bulk actions log
+      description: Returns the log of asynchronous bulk operations (bulk participants, bulk events, extracts) and their status. Path modeled from the OpenClinica bulk actions log documentation.
+      responses:
+        '200':
+          description: A list of bulk action log entries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BulkActionLogEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+  schemas:
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
+    Participant:
+      type: object
+      properties:
+        subjectKey:
+          type: string
+          description: The participant (subject) identifier.
+        studyOID:
+          type: string
+        siteOID:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        enrollmentDate:
+          type: string
+          format: date
+    BulkActionLogEntry:
+      type: object
+      properties:
+        uuid:
+          type: string
+        actionType:
+          type: string
+          example: BULK_PARTICIPANT
+        status:
+          type: string
+          example: COMPLETED
+        createdDate:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

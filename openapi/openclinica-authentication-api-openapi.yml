@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: OpenClinica REST Authentication API
+  description: 'OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.
+
+    Endpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.'
+  version: '4.0'
+  contact:
+    name: OpenClinica
+    url: https://www.openclinica.com
+  license:
+    name: LGPL-2.1 (Community Edition)
+    url: https://github.com/OpenClinica/OpenClinica/blob/master/LICENSE.txt
+servers:
+- url: https://{subdomain}.build.openclinica.io
+  description: OpenClinica hosted instance (replace {subdomain} with your instance subdomain)
+  variables:
+    subdomain:
+      default: your-instance
+      description: Your OpenClinica instance subdomain.
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+  description: OAuth 2.0 token acquisition.
+paths:
+  /user-service/api/oauth/token:
+    post:
+      operationId: getAccessToken
+      tags:
+      - Authentication
+      summary: Obtain an OAuth 2.0 access token
+      description: POST credentials to obtain a bearer access token. The token is then sent as an Authorization Bearer header on all subsequent REST API calls.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: password
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: An access token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                    example: bearer
+                  expires_in:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

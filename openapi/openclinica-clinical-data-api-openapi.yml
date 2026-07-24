@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: OpenClinica REST Authentication Clinical Data API
+  description: 'OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.
+
+    Endpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.'
+  version: '4.0'
+  contact:
+    name: OpenClinica
+    url: https://www.openclinica.com
+  license:
+    name: LGPL-2.1 (Community Edition)
+    url: https://github.com/OpenClinica/OpenClinica/blob/master/LICENSE.txt
+servers:
+- url: https://{subdomain}.build.openclinica.io
+  description: OpenClinica hosted instance (replace {subdomain} with your instance subdomain)
+  variables:
+    subdomain:
+      default: your-instance
+      description: Your OpenClinica instance subdomain.
+security:
+- bearerAuth: []
+tags:
+- name: Clinical Data
+  description: Import and retrieve CRF data using CDISC ODM.
+paths:
+  /pages/auth/api/clinicaldata/{studyOID}/{participantOID}/{studyEventOID}/{formOID}:
+    get:
+      operationId: getClinicalData
+      tags:
+      - Clinical Data
+      summary: Retrieve clinical data as CDISC ODM
+      description: Retrieves participant clinical (CRF) data as a CDISC ODM XML or JSON document, scoped by study, participant, study event, and form OID. Optional query parameters include audit logs, discrepancy notes (queries), and archived-form clinical data.
+      parameters:
+      - $ref: '#/components/parameters/StudyOID'
+      - name: participantOID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: studyEventOID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: formOID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeAudits
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: includeDNs
+        in: query
+        required: false
+        description: Include discrepancy notes (queries).
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Clinical data in CDISC ODM format.
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pages/auth/api/clinicaldata:
+    post:
+      operationId: importClinicalData
+      tags:
+      - Clinical Data
+      summary: Import clinical data (CDISC ODM)
+      description: Imports clinical (CRF) data into a study using a CDISC ODM document. Modeled from the OpenClinica clinicaldata import documentation; confirm the exact path and payload against your instance version.
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: string
+              description: A CDISC ODM XML document.
+      responses:
+        '200':
+          description: An import result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAccepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
