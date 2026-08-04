@@ -1,0 +1,24 @@
+{
+  "provider": "openclinica",
+  "sources": [
+    "openclinica-authentication-api-openapi.yml",
+    "openclinica-bulk-operations-api-openapi.yml",
+    "openclinica-clinical-data-api-openapi.yml",
+    "openclinica-metadata-api-openapi.yml",
+    "openclinica-participants-api-openapi.yml",
+    "openclinica-study-events-api-openapi.yml"
+  ],
+  "outputs": [
+    "openclinica-authentication-api-openapi.yml",
+    "openclinica-bulk-operations-api-openapi.yml",
+    "openclinica-clinical-data-api-openapi.yml",
+    "openclinica-metadata-api-openapi.yml",
+    "openclinica-participants-api-openapi.yml",
+    "openclinica-study-events-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
