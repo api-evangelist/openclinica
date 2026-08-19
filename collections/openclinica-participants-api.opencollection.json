@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenClinica REST Authentication Participants API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Participants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get participants at study level",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/participants",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              }
+            ]
+          },
+          "docs": "Lists participants enrolled in a study, qualified by study OID."
+        },
+        {
+          "info": {
+            "name": "Add or update a participant at study level",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/participants",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a single participant enrolled directly at the study level."
+        },
+        {
+          "info": {
+            "name": "Get participants at site level",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/sites/:siteOID/participants",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              },
+              {
+                "name": "siteOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique site OID within the study."
+              }
+            ]
+          },
+          "docs": "Lists participants enrolled at a specific site within a study."
+        },
+        {
+          "info": {
+            "name": "Add or update a participant at site level",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/sites/:siteOID/participants",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              },
+              {
+                "name": "siteOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique site OID within the study."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a single participant enrolled at a specific site."
+        },
+        {
+          "info": {
+            "name": "Extract participant contact information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/sites/:siteOID/participants/extractParticipantsInfo",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              },
+              {
+                "name": "siteOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique site OID within the study."
+              }
+            ]
+          },
+          "docs": "Retrieves participant contact information (e.g. for notifications) for a study and site. Returns an asynchronous job that produces a contact-info extract."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

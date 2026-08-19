@@ -1,0 +1,228 @@
+{
+  "item": [
+    {
+      "id": "9c4e2e8a-f39a-400c-b6cc-c49393d632fa",
+      "name": "Metadata",
+      "description": {
+        "content": "Read ODM study design metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8bf91d45-c891-433e-907e-42e372ab1326",
+          "name": "Read ODM study metadata",
+          "request": {
+            "name": "Read ODM study metadata",
+            "description": {
+              "content": "Reads the ODM metadata describing a study's design (event definitions, forms, item groups, and items), qualified by study OID. The requesting user must have read privileges for the study. Path modeled from the OC3 ODM metadata REST service documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "auth",
+                "api",
+                "clinicaldata",
+                "metadata",
+                ":studyOID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "studyOID",
+                  "description": "(Required) The unique study OID."
+                },
+                {
+                  "description": "Your OpenClinica instance subdomain.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4990e281-1b92-42ab-9f14-7dd86fb4ab91",
+              "name": "Study metadata in CDISC ODM format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "metadata",
+                    ":studyOID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20a03bec-3de4-4e0d-a8d2-1ddaf665a9a7",
+              "name": "Authentication failed or the bearer token is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "metadata",
+                    ":studyOID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your OpenClinica instance subdomain.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "subdomain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{subdomain}}.build.openclinica.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6df71bce-acdf-4bf7-b466-ed9e2ea04e66",
+    "name": "OpenClinica REST Authentication Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.\nEndpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.\n\nContact Support:\n Name: OpenClinica",
+      "type": "text/plain"
+    }
+  }
+}

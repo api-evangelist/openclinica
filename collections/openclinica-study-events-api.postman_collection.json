@@ -1,0 +1,734 @@
+{
+  "item": [
+    {
+      "id": "025f244b-bb0c-4e37-b504-d3cf11e7fc13",
+      "name": "Study Events",
+      "description": {
+        "content": "Scheduling and updating study events (visits) for participants.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23d686f3-8c94-4687-91e1-2ead55fd7bf8",
+          "name": "Bulk create or update study events",
+          "request": {
+            "name": "Bulk create or update study events",
+            "description": {
+              "content": "Schedules or updates study events for multiple participants in a single request. Modeled from the OpenClinica bulk events documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "auth",
+                "api",
+                "clinicaldata",
+                "studies",
+                ":studyOID",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "studyOID",
+                  "description": "(Required) The unique study OID."
+                },
+                {
+                  "description": "Your OpenClinica instance subdomain.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyEventOID\": \"<string>\",\n      \"ordinal\": \"<integer>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyEventOID\": \"<string>\",\n      \"ordinal\": \"<integer>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1ff24f7-d51d-47aa-b686-bc74bce90db4",
+              "name": "A job accepted to process the bulk events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyEventOID\": \"<string>\",\n      \"ordinal\": \"<integer>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"status\": \"scheduled\"\n    },\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyEventOID\": \"<string>\",\n      \"ordinal\": \"<integer>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"status\": \"scheduled\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"status\": \"PENDING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe90b004-d570-48f8-a703-9cc78f48838c",
+              "name": "Authentication failed or the bearer token is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyEventOID\": \"<string>\",\n      \"ordinal\": \"<integer>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"status\": \"scheduled\"\n    },\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyEventOID\": \"<string>\",\n      \"ordinal\": \"<integer>\",\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\",\n      \"status\": \"scheduled\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1e01b60-e90d-4142-96e8-be1b2f08dec8",
+          "name": "Create (schedule) a single study event",
+          "request": {
+            "name": "Create (schedule) a single study event",
+            "description": {
+              "content": "Schedules a single study event for a participant at a site.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "auth",
+                "api",
+                "clinicaldata",
+                "studies",
+                ":studyOID",
+                "sites",
+                ":siteOID",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "studyOID",
+                  "description": "(Required) The unique study OID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "siteOID",
+                  "description": "(Required) The unique site OID within the study."
+                },
+                {
+                  "description": "Your OpenClinica instance subdomain.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c8bce27-6b74-4330-9899-39e64762eb63",
+              "name": "The scheduled study event.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "sites",
+                    ":siteOID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteOID",
+                      "description": "(Required) The unique site OID within the study."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"scheduled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"scheduled\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79d61782-f432-4985-8420-973acd25f70f",
+              "name": "Authentication failed or the bearer token is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "sites",
+                    ":siteOID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteOID",
+                      "description": "(Required) The unique site OID within the study."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"scheduled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3c3d30b-b92c-4886-ac4f-47c054bae82e",
+          "name": "Update a single study event",
+          "request": {
+            "name": "Update a single study event",
+            "description": {
+              "content": "Updates an existing study event for a participant at a site.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "auth",
+                "api",
+                "clinicaldata",
+                "studies",
+                ":studyOID",
+                "sites",
+                ":siteOID",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "studyOID",
+                  "description": "(Required) The unique study OID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "siteOID",
+                  "description": "(Required) The unique site OID within the study."
+                },
+                {
+                  "description": "Your OpenClinica instance subdomain.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9fa74e86-c620-4a95-8fa4-913fce94c124",
+              "name": "The updated study event.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "sites",
+                    ":siteOID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteOID",
+                      "description": "(Required) The unique site OID within the study."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"scheduled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"scheduled\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38879680-ef98-4968-97c5-e3b5c56a998d",
+              "name": "Authentication failed or the bearer token is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "sites",
+                    ":siteOID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteOID",
+                      "description": "(Required) The unique site OID within the study."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subjectKey\": \"<string>\",\n  \"studyEventOID\": \"<string>\",\n  \"ordinal\": \"<integer>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"status\": \"scheduled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your OpenClinica instance subdomain.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "subdomain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{subdomain}}.build.openclinica.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7438cf9f-e26d-4d06-9826-97f4ab190e02",
+    "name": "OpenClinica REST Authentication Study Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.\nEndpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.\n\nContact Support:\n Name: OpenClinica",
+      "type": "text/plain"
+    }
+  }
+}

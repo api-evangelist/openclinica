@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenClinica REST Authentication Study Events API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Study Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bulk create or update study events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/events",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules or updates study events for multiple participants in a single request. Modeled from the OpenClinica bulk events documentation."
+        },
+        {
+          "info": {
+            "name": "Create (schedule) a single study event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/sites/:siteOID/events",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              },
+              {
+                "name": "siteOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique site OID within the study."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules a single study event for a participant at a site."
+        },
+        {
+          "info": {
+            "name": "Update a single study event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/sites/:siteOID/events",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              },
+              {
+                "name": "siteOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique site OID within the study."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing study event for a participant at a site."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,414 @@
+{
+  "item": [
+    {
+      "id": "202c68b2-fdac-463d-b08a-0a4ebc28bc8d",
+      "name": "Bulk Operations",
+      "description": {
+        "content": "Bulk participant and event operations plus the bulk actions log.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "edf03246-6a07-4716-ba78-34848a797118",
+          "name": "Add or update a bulk list of participants",
+          "request": {
+            "name": "Add or update a bulk list of participants",
+            "description": {
+              "content": "Adds or updates a list of participants in a single request. Modeled from the OpenClinica bulk participants documentation; reconcile the exact path and payload against your instance version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "auth",
+                "api",
+                "clinicaldata",
+                "studies",
+                ":studyOID",
+                "participants",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "studyOID",
+                  "description": "(Required) The unique study OID."
+                },
+                {
+                  "description": "Your OpenClinica instance subdomain.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participants\": [\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyOID\": \"<string>\",\n      \"siteOID\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"enrollmentDate\": \"<date>\"\n    },\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyOID\": \"<string>\",\n      \"siteOID\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"enrollmentDate\": \"<date>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f80d00b-b8a3-4810-946b-19920af9c6ac",
+              "name": "A job accepted to process the bulk participant list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "participants",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"participants\": [\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyOID\": \"<string>\",\n      \"siteOID\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"enrollmentDate\": \"<date>\"\n    },\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyOID\": \"<string>\",\n      \"siteOID\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"enrollmentDate\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"status\": \"PENDING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b7a8cb0-e805-499f-b16d-c4eb34c48132",
+              "name": "Authentication failed or the bearer token is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "clinicaldata",
+                    "studies",
+                    ":studyOID",
+                    "participants",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "studyOID",
+                      "description": "(Required) The unique study OID."
+                    },
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"participants\": [\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyOID\": \"<string>\",\n      \"siteOID\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"enrollmentDate\": \"<date>\"\n    },\n    {\n      \"subjectKey\": \"<string>\",\n      \"studyOID\": \"<string>\",\n      \"siteOID\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"enrollmentDate\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c13d8a8-2b8c-4759-afd9-49c6cc0cf9f5",
+          "name": "Retrieve the bulk actions log",
+          "request": {
+            "name": "Retrieve the bulk actions log",
+            "description": {
+              "content": "Returns the log of asynchronous bulk operations (bulk participants, bulk events, extracts) and their status. Path modeled from the OpenClinica bulk actions log documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "auth",
+                "api",
+                "bulkActionsLog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your OpenClinica instance subdomain.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "decc7e38-fa56-4229-b6f1-cc257003eda5",
+              "name": "A list of bulk action log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "bulkActionsLog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uuid\": \"string\",\n      \"actionType\": \"BULK_PARTICIPANT\",\n      \"status\": \"COMPLETED\",\n      \"createdDate\": \"1987-02-17T11:15:15.638Z\"\n    },\n    {\n      \"uuid\": \"string\",\n      \"actionType\": \"BULK_PARTICIPANT\",\n      \"status\": \"COMPLETED\",\n      \"createdDate\": \"2014-05-02T17:35:25.923Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4943da84-9786-4382-acd9-40decdc300a6",
+              "name": "Authentication failed or the bearer token is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "auth",
+                    "api",
+                    "bulkActionsLog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your OpenClinica instance subdomain.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your OpenClinica instance subdomain.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "subdomain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{subdomain}}.build.openclinica.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "89a25fbc-74a1-449f-b9b5-d057610ef920",
+    "name": "OpenClinica REST Authentication Bulk Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.\nEndpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.\n\nContact Support:\n Name: OpenClinica",
+      "type": "text/plain"
+    }
+  }
+}

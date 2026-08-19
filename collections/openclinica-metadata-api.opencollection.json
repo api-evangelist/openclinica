@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenClinica REST Authentication Metadata API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read ODM study metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/metadata/:studyOID",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              }
+            ]
+          },
+          "docs": "Reads the ODM metadata describing a study's design (event definitions, forms, item groups, and items), qualified by study OID. The requesting user must have read privileges for the study. Path modeled from the OC3 ODM metadata REST service documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

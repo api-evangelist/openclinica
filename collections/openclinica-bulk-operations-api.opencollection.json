@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenClinica REST Authentication Bulk Operations API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add or update a bulk list of participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/studies/:studyOID/participants/bulk",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or updates a list of participants in a single request. Modeled from the OpenClinica bulk participants documentation; reconcile the exact path and payload against your instance version."
+        },
+        {
+          "info": {
+            "name": "Retrieve the bulk actions log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/bulkActionsLog"
+          },
+          "docs": "Returns the log of asynchronous bulk operations (bulk participants, bulk events, extracts) and their status. Path modeled from the OpenClinica bulk actions log documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenClinica REST Authentication Clinical Data API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clinical Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve clinical data as CDISC ODM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata/:studyOID/:participantOID/:studyEventOID/:formOID",
+            "params": [
+              {
+                "name": "studyOID",
+                "value": "",
+                "type": "path",
+                "description": "The unique study OID."
+              },
+              {
+                "name": "participantOID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "studyEventOID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "formOID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "includeAudits",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeDNs",
+                "value": "",
+                "type": "query",
+                "description": "Include discrepancy notes (queries)."
+              }
+            ]
+          },
+          "docs": "Retrieves participant clinical (CRF) data as a CDISC ODM XML or JSON document, scoped by study, participant, study event, and form OID. Optional query parameters include audit logs, discrepancy notes (queries), and archived-form clinical data."
+        },
+        {
+          "info": {
+            "name": "Import clinical data (CDISC ODM)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.build.openclinica.io/pages/auth/api/clinicaldata"
+          },
+          "docs": "Imports clinical (CRF) data into a study using a CDISC ODM document. Modeled from the OpenClinica clinicaldata import documentation; confirm the exact path and payload against your instance version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
