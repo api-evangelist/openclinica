@@ -12,6 +12,18 @@ description: OpenClinica is a clinical-trial electronic data capture (EDC) and
   study events, and importing and retrieving clinical data. Data is interchanged
   using the CDISC ODM (Operational Data Model) standard as XML or JSON, so studies
   remain portable and standards-based.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
