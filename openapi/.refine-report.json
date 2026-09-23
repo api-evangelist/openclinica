@@ -1,12 +1,7 @@
 {
   "provider": "openclinica",
   "sources": [
-    "openclinica-authentication-api-openapi.yml",
-    "openclinica-bulk-operations-api-openapi.yml",
-    "openclinica-clinical-data-api-openapi.yml",
-    "openclinica-metadata-api-openapi.yml",
-    "openclinica-participants-api-openapi.yml",
-    "openclinica-study-events-api-openapi.yml"
+    "_original/openclinica-openapi.yml"
   ],
   "outputs": [
     "openclinica-authentication-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openclinica-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "openclinica-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openclinica-bulk-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openclinica-clinical-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openclinica-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openclinica-participants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openclinica-study-events-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

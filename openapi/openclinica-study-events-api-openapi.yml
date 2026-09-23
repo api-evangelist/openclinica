@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: OpenClinica REST Authentication Study Events API
-  description: 'OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform. Its REST web services API lets you programmatically add and update participants (single and bulk), schedule and update study events, and import and retrieve clinical (case report form) data. Clinical data and study metadata are interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON. Access requires an OAuth 2.0 bearer token obtained from the OpenClinica user-service token endpoint; the token is sent as an Authorization Bearer header on every call. OpenClinica is a multi-tenant SaaS - the {subdomain} server variable is your instance subdomain. A free, open-source Community Edition (LGPL) is also self-hostable.
-
-    Endpoint accuracy note: the /pages/auth/api/clinicaldata participant, event, and clinical-data paths are grounded in OpenClinica 4 documentation. Bulk request bodies, the clinical-data import payload, and the ODM metadata path are modeled from the documentation and should be reconciled against your instance version before production use.'
+  title: OpenClinica REST Study Events API
+  description: OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform.
   version: '4.0'
   contact:
     name: OpenClinica
@@ -103,30 +101,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failed or the bearer token is missing, invalid, or expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    SiteOID:
-      name: siteOID
-      in: path
-      required: true
-      description: The unique site OID within the study.
-      schema:
-        type: string
-        example: S_SITE01
-    StudyOID:
-      name: studyOID
-      in: path
-      required: true
-      description: The unique study OID.
-      schema:
-        type: string
-        example: S_STUDY01
   schemas:
     JobAccepted:
       type: object
@@ -137,6 +111,13 @@ components:
         status:
           type: string
           example: PENDING
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     StudyEvent:
       type: object
       properties:
@@ -156,13 +137,30 @@ components:
         status:
           type: string
           example: scheduled
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+    SiteOID:
+      name: siteOID
+      in: path
+      required: true
+      description: The unique site OID within the study.
+      schema:
+        type: string
+        example: S_SITE01
   securitySchemes:
     bearerAuth:
       type: http
