@@ -93,16 +93,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    StudyOID:
-      name: studyOID
-      in: path
-      required: true
-      description: The unique study OID.
-      schema:
-        type: string
-        example: S_STUDY01
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     JobAccepted:
       type: object
       properties:
@@ -112,13 +110,15 @@ components:
         status:
           type: string
           example: PENDING
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
+  parameters:
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
   responses:
     Unauthorized:
       description: Authentication failed or the bearer token is missing, invalid, or expired.

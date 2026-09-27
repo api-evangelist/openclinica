@@ -101,16 +101,31 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    SiteOID:
+      name: siteOID
+      in: path
+      required: true
+      description: The unique site OID within the study.
+      schema:
+        type: string
+        example: S_SITE01
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    JobAccepted:
-      type: object
-      properties:
-        uuid:
-          type: string
-          description: Identifier for the asynchronous job; check status via the bulk actions log.
-        status:
-          type: string
-          example: PENDING
     Error:
       type: object
       properties:
@@ -137,30 +152,15 @@ components:
         status:
           type: string
           example: scheduled
-  responses:
-    Unauthorized:
-      description: Authentication failed or the bearer token is missing, invalid, or expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    StudyOID:
-      name: studyOID
-      in: path
-      required: true
-      description: The unique study OID.
-      schema:
-        type: string
-        example: S_STUDY01
-    SiteOID:
-      name: siteOID
-      in: path
-      required: true
-      description: The unique site OID within the study.
-      schema:
-        type: string
-        example: S_SITE01
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
   securitySchemes:
     bearerAuth:
       type: http
