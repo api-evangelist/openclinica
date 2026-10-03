@@ -80,7 +80,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
   schemas:
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
     Error:
       type: object
       properties:
@@ -88,6 +106,20 @@ components:
           type: string
         code:
           type: string
+    BulkActionLogEntry:
+      type: object
+      properties:
+        uuid:
+          type: string
+        actionType:
+          type: string
+          example: BULK_PARTICIPANT
+        status:
+          type: string
+          example: COMPLETED
+        createdDate:
+          type: string
+          format: date-time
     Participant:
       type: object
       properties:
@@ -109,38 +141,6 @@ components:
         enrollmentDate:
           type: string
           format: date
-    BulkActionLogEntry:
-      type: object
-      properties:
-        uuid:
-          type: string
-        actionType:
-          type: string
-          example: BULK_PARTICIPANT
-        status:
-          type: string
-          example: COMPLETED
-        createdDate:
-          type: string
-          format: date-time
-    JobAccepted:
-      type: object
-      properties:
-        uuid:
-          type: string
-          description: Identifier for the asynchronous job; check status via the bulk actions log.
-        status:
-          type: string
-          example: PENDING
-  parameters:
-    StudyOID:
-      name: studyOID
-      in: path
-      required: true
-      description: The unique study OID.
-      schema:
-        type: string
-        example: S_STUDY01
   securitySchemes:
     bearerAuth:
       type: http
