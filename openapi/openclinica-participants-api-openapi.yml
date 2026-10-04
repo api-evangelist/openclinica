@@ -127,22 +127,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ParticipantList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
-    JobAccepted:
-      type: object
-      properties:
-        uuid:
-          type: string
-          description: Identifier for the asynchronous job; check status via the bulk actions log.
-        status:
-          type: string
-          example: PENDING
     Error:
       type: object
       properties:
@@ -150,6 +134,13 @@ components:
           type: string
         code:
           type: string
+    ParticipantList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
     Participant:
       type: object
       properties:
@@ -171,13 +162,15 @@ components:
         enrollmentDate:
           type: string
           format: date
-  responses:
-    Unauthorized:
-      description: Authentication failed or the bearer token is missing, invalid, or expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
   parameters:
     StudyOID:
       name: studyOID
@@ -195,6 +188,13 @@ components:
       schema:
         type: string
         example: S_SITE01
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

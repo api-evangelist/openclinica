@@ -73,32 +73,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failed or the bearer token is missing, invalid, or expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    StudyOID:
-      name: studyOID
-      in: path
-      required: true
-      description: The unique study OID.
-      schema:
-        type: string
-        example: S_STUDY01
   schemas:
-    JobAccepted:
-      type: object
-      properties:
-        uuid:
-          type: string
-          description: Identifier for the asynchronous job; check status via the bulk actions log.
-        status:
-          type: string
-          example: PENDING
     Error:
       type: object
       properties:
@@ -141,6 +116,31 @@ components:
         enrollmentDate:
           type: string
           format: date
+    JobAccepted:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Identifier for the asynchronous job; check status via the bulk actions log.
+        status:
+          type: string
+          example: PENDING
+  parameters:
+    StudyOID:
+      name: studyOID
+      in: path
+      required: true
+      description: The unique study OID.
+      schema:
+        type: string
+        example: S_STUDY01
+  responses:
+    Unauthorized:
+      description: Authentication failed or the bearer token is missing, invalid, or expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
