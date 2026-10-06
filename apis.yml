@@ -57,7 +57,7 @@ tags_raw:
 - Open Source
 - Open-Source
 created: '2026-07-05'
-modified: '2026-07-05'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: openclinica:openclinica-authentication-api
@@ -301,6 +301,10 @@ apis:
     url: >-
       https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-participantsbulk-add-bulk-list-participant-ids/
 common:
+- url: https://www.openclinica.com/blog/
+  type: Blog
+- url: https://www.openclinica.com/feed/
+  type: BlogRSS
 - type: AgenticAccess
   url: agentic-access/openclinica-agentic-access.yml
 - type: TrustCenter
