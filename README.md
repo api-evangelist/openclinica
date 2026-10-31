@@ -1,4 +1,4 @@
-# OpenClinica (openclinica)
+# OpenClinica
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,153 +66,127 @@
 
 OpenClinica is a clinical-trial electronic data capture (EDC) and clinical data management platform used to build studies, capture case report form (CRF) data, schedule study events, and manage participants across sites. It ships as a free, open-source Community Edition (LGPL) and as a fully supported, hosted Enterprise Edition. OpenClinica exposes a documented REST web services API - authenticated with OAuth 2.0 bearer tokens - for programmatically adding and updating participants (single and bulk), scheduling and updating study events, and importing and retrieving clinical data. Data is interchanged using the CDISC ODM (Operational Data Model) standard as XML or JSON, so studies remain portable and standards-based.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/openclinica/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/openclinica/refs/heads/main/apis.yml)
+**Areas:** Clinical Trials · Electronic Data Capture · EDC · Clinical Data Management · CDISC ODM · Healthcare · Open Source
 
-## Tags
+## OpenClinica on APIs.io
 
-- Clinical Trials
-- Electronic Data Capture
-- EDC
-- Clinical Data Management
-- CDISC ODM
-- Healthcare
-- Open Source
+Everything profiled for OpenClinica is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/openclinica/](https://apis.io/providers/openclinica/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-07-05
-- **Modified:** 2026-07-05
+- [OpenClinica Authentication API](https://apis.io/apis/openclinica/openclinica-authentication-api/) — OAuth 2.0 token acquisition.
+- [OpenClinica Bulk Operations API](https://apis.io/apis/openclinica/openclinica-bulk-operations-api/) — Bulk participant and event operations plus the bulk actions log.
+- [OpenClinica Clinical Data API](https://apis.io/apis/openclinica/openclinica-clinical-data-api/) — Import and retrieve CRF data using CDISC ODM.
+- [OpenClinica Metadata API](https://apis.io/apis/openclinica/openclinica-metadata-api/) — Read ODM study design metadata.
+- [OpenClinica Participants API](https://apis.io/apis/openclinica/openclinica-participants-api/) — Study participants (subjects) - add, update, list, and extract contact info.
+- [OpenClinica Study Events API](https://apis.io/apis/openclinica/openclinica-study-events-api/) — Scheduling and updating study events (visits) for participants.
 
-## APIs
+### Published properties
 
-### OpenClinica Authentication API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Obtain an OAuth 2.0 bearer access token by POSTing credentials to the OpenClinica user-service token endpoint. The returned token is passed as an Authorization Bearer header on every subsequent REST API call.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.openclinica.com/oc4/how-and-when-to-use-apis/](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/)
-- **Base URL:** `https://{subdomain}.build.openclinica.io/user-service/api`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Openclinica Agentic Access](https://apis.io/agentic-access/openclinica/openclinica-agentic-access/)
 
-- Authentication
-- OAuth
-- Tokens
+#### Collections (7)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/)
-- [API Reference](https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-oauth-and-openclinica/)
-- [OpenAPI](openapi/openclinica-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenClinica REST API](https://apis.io/collections/openclinica/open-openclinica/)
+- [OpenClinica REST Authentication API](https://apis.io/collections/openclinica/open-openclinica-authentication-api/)
+- [OpenClinica REST Authentication Bulk Operations API](https://apis.io/collections/openclinica/open-openclinica-bulk-operations-api/)
+- [OpenClinica REST Authentication Clinical Data API](https://apis.io/collections/openclinica/open-openclinica-clinical-data-api/)
+- [OpenClinica REST Authentication Metadata API](https://apis.io/collections/openclinica/open-openclinica-metadata-api/)
+- [OpenClinica REST Authentication Participants API](https://apis.io/collections/openclinica/open-openclinica-participants-api/)
+- [OpenClinica REST Authentication Study Events API](https://apis.io/collections/openclinica/open-openclinica-study-events-api/)
 
-### OpenClinica Participants API
+#### Security (3)
 
-Add or update study participants at study or site level, list participants scoped to a study or site, and extract participant contact information. Participants are the human subjects enrolled in a clinical study.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-add/](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-add/)
-- **Base URL:** `https://{subdomain}.build.openclinica.io/pages/auth/api`
+- [Openclinica Authentication](https://apis.io/security/openclinica/openclinica-authentication/)
+- [Openclinica Domain Security](https://apis.io/security/openclinica/openclinica-domain-security/)
+- [Openclinica Trust Center](https://apis.io/security/openclinica/openclinica-trust-center/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Participants
-- Subjects
-- Enrollment
+Published plans, tiers and prices.
 
-#### Properties
+- [Openclinica Plans Pricing](https://apis.io/plans/openclinica/openclinica-plans-pricing/)
 
-- [Documentation](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-add/)
-- [API Reference](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-participants-get-participants-study-level-or-site-level/)
-- [OpenAPI](openapi/openclinica-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openclinica.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openclinica.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### OpenClinica Study Events API
+Published request limits.
 
-Schedule (create) and update study events for a participant - the visits or time points at which case report forms are collected. Supports single-event operations and bulk create/update of study events.
+- [Openclinica Rate Limits](https://apis.io/rate-limits/openclinica/openclinica-rate-limits/)
 
-- **Human URL:** [https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-events-create-and-update-single-study-event/](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-events-create-and-update-single-study-event/)
-- **Base URL:** `https://{subdomain}.build.openclinica.io/pages/auth/api`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Study Events
-- Scheduling
-- Visits
+- [Openclinica Finops](https://apis.io/finops/openclinica/openclinica-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-openclinica-4-technical-documentation-events-create-and-update-single-study-event/)
-- [OpenAPI](openapi/openclinica-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openclinica.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openclinica.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### OpenClinica Clinical Data API
-
-Import and retrieve clinical (case report form) data using the CDISC ODM standard as XML or JSON. Retrieval can return study metadata and/or clinical data including audit logs, discrepancy notes (queries), and archived forms, scoped by study, participant, event, and form.
-
-- **Human URL:** [https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-clinicaldata-import-crf-data/](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-clinicaldata-import-crf-data/)
-- **Base URL:** `https://{subdomain}.build.openclinica.io/pages/auth/api`
-
-#### Tags
-
-- Clinical Data
-- CRF
-- CDISC ODM
-
-#### Properties
-
-- [Documentation](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-clinicaldata-import-crf-data/)
-- [OpenAPI](openapi/openclinica-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/openclinica.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openclinica.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### OpenClinica ODM Metadata API
-
-Read the ODM metadata that describes a study's design - event definitions, forms, item groups, and items - qualified by a study OID. The requesting user must have read privileges for the study. Returns CDISC ODM.
-
-- **Human URL:** [https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-read-openclinica-odm-metadata-rest-service/](https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-read-openclinica-odm-metadata-rest-service/)
-- **Base URL:** `https://{subdomain}.build.openclinica.io/pages/auth/api`
-
-#### Tags
-
-- Metadata
-- CDISC ODM
-- Study Design
-
-#### Properties
-
-- [Documentation](https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/rest-api-specifications-read-openclinica-odm-metadata-rest-service/)
-- [API Reference](https://docs.openclinica.com/3-1-technical-documents/rest-api-specifications/openclinica-restful-urls/)
-- [OpenAPI](openapi/openclinica-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-### OpenClinica Bulk Operations API
-
-Add or update a bulk list of participants in a single request and review the outcome of asynchronous bulk actions through the bulk actions log. Used for high-volume participant onboarding and batch operations.
-
-- **Human URL:** [https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-participantsbulk-add-bulk-list-participant-ids/](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-participantsbulk-add-bulk-list-participant-ids/)
-- **Base URL:** `https://{subdomain}.build.openclinica.io/pages/auth/api`
-
-#### Tags
-
-- Bulk
-- Batch
-- Jobs
-
-#### Properties
-
-- [Documentation](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/oc4-participantsbulk-add-bulk-list-participant-ids/)
-- [OpenAPI](openapi/openclinica-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/OpenClinica)
-- [LinkedIn](https://www.linkedin.com/company/openclinica)
 - [Website](https://www.openclinica.com)
 - [Documentation](https://docs.openclinica.com/oc4/how-and-when-to-use-apis/)
-- [Plans](plans/openclinica-plans-pricing.yml)
-- [Rate Limits](rate-limits/openclinica-rate-limits.yml)
-- [Fin Ops](finops/openclinica-finops.yml)
+- [Blog](https://www.openclinica.com/blog/)
+- [GitHub](https://github.com/OpenClinica)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 23.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 16.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 13.2 |
+
+**Agent readiness 20.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.3** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/openclinica/](https://apis.io/providers/openclinica/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OpenClinica: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/openclinica/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
